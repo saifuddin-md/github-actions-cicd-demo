@@ -10,4 +10,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: test step
-        run: echo "aq demo test"
+        run: echo "a demo test"
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: deploy step
+        run: echo "a demp deploy"
+  
