@@ -6,3 +6,4 @@ jobs:
     steps:
       - name: hello step
         run: echo "welcome to gha"
+        run: echo "welcome to lota"
