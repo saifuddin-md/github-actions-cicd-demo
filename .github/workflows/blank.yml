@@ -1,12 +1,7 @@
-name: hello_world
-on: push
-jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - name: checkout the code
-        uses: actions/checkout@v4
-      - name: print the file
-        run: cat index.html
-
-  
+name: Kubernetes CI
+on:
+  push:
+    branches:
+      - dev                          
+      - 'feature/**'                 
+#push feature/kubernetes-ci - CI runs - PR - dev - CI runs again
