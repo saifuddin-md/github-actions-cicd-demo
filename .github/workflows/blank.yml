@@ -1,10 +1,11 @@
-name: hello_world
-on: push
+name: Kubernetes CI
+on:
+  push:
+    branches:
+      - master
 jobs:
-  build:
+  rr-app-ci:
     runs-on: ubuntu-latest
     steps:
-      - name: checkout the code
+      - name: Code Checkout
         uses: actions/checkout@v4
-      - name: print the file
-        run: cat index.html
