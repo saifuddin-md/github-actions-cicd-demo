@@ -4,7 +4,9 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: build step
-        run: echo "hello, ${{ secrets.DOCKER_PASSWARD }}"
+      - name: checkout the code
+        uses: actions/checkout@v4
+      - name: print file
+        run: cat index.html
 
   
