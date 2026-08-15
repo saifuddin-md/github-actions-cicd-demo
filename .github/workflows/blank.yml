@@ -1,13 +1,10 @@
 name: hello_world
-on: 
-  push:
-    branches:
-      - dev
+on: push
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: build step
-        run: echo "a demo build"
-
-  
+      - name: checkout the code
+        uses: actions/checkout@v4
+      - name: print the file
+        run: cat index.html
