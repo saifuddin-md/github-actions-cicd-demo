@@ -1,0 +1,21 @@
+# Stage 1
+FROM node:20-slim AS builder
+WORKDIR /app
+
+COPY package*.json ./
+RUN npm ci
+
+COPY . .
+
+# Stage 2
+FROM node:20-slim
+WORKDIR /app
+
+COPY --from=builder /app /app
+RUN npm prune --production
+
+USER node
+
+EXPOSE 5001
+
+CMD ["node", "index.js"]
