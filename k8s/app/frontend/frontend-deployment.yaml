@@ -29,7 +29,7 @@ spec:
     spec:
       containers:
         - name: rr-frontend--container
-          image: xrootms/app-frontend:f709c68 # v3 image created for ingress setup REACT_APP_API_URL=/api/v1
+          image: xrootms/app-frontend:a94d0ce # v3 image created for ingress setup REACT_APP_API_URL=/api/v1
           imagePullPolicy: Always
           ports:
             - containerPort: 80
@@ -53,20 +53,3 @@ spec:
             limits:
               cpu: "200m"
               memory: "256Mi"
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: rr-frontend-service
-  namespace: rr-app
-  labels:
-    app: frontend
-    env: development
-spec:
-  type: ClusterIP
-  selector:
-    app: frontend
-  ports:
-    - port: 80
-      targetPort: 80
-  
