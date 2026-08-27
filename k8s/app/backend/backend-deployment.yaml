@@ -32,7 +32,7 @@ spec:
     spec:
       containers:
       - name: rr-backend-container
-        image: xrootms/rr-backend:p1
+        image: xrootms/app-backend:p1
         imagePullPolicy: Always
 
         ports:
