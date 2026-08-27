@@ -31,34 +31,31 @@ spec:
 
     spec:
       containers:
-      - name: rr-frontend--container
-        image: xrootms/app-frontend:v3        # v3 image created for ingress setup REACT_APP_API_URL=/api/v1
-        imagePullPolicy: Always
-        ports:
-        - containerPort: 80
-
-        livenessProbe:                        # Liveness GET / every 5 sec. If failed: restart pod.
-          httpGet:
-            path: /
-            port: 80
-          initialDelaySeconds: 2              # Wait 2 seconds after container starts BEFORE first health check
-          periodSeconds: 5                    # Run health check every 5 seconds
-
-        readinessProbe:                       #  Readiness  GET / every 5 sec. 2 successful checks before traffic allowed.
-          httpGet:
-            path: /
-            port: 80
-          initialDelaySeconds: 5
-          periodSeconds: 5
-          successThreshold: 2                 # 2 successful checks in a row before marking pod Ready
-
-        resources:
-          requests:                           # Dont schedule this Pod unless the node has at least.
-            cpu: "100m"
-            memory: "128Mi"
-          limits:
-            cpu: "200m"
-            memory: "256Mi"
+        - name: rr-frontend--container
+          image: xrootms/app-frontend:f709c68 # v3 image created for ingress setup REACT_APP_API_URL=/api/v1
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 80
+          livenessProbe: # Liveness GET / every 5 sec. If failed: restart pod.
+            httpGet:
+              path: /
+              port: 80
+            initialDelaySeconds: 2 # Wait 2 seconds after container starts BEFORE first health check
+            periodSeconds: 5 # Run health check every 5 seconds
+          readinessProbe: #  Readiness  GET / every 5 sec. 2 successful checks before traffic allowed.
+            httpGet:
+              path: /
+              port: 80
+            initialDelaySeconds: 5
+            periodSeconds: 5
+            successThreshold: 2 # 2 successful checks in a row before marking pod Ready
+          resources:
+            requests: # Dont schedule this Pod unless the node has at least.
+              cpu: "100m"
+              memory: "128Mi"
+            limits:
+              cpu: "200m"
+              memory: "256Mi"
 ---
 apiVersion: v1
 kind: Service
@@ -68,12 +65,11 @@ metadata:
   labels:
     app: frontend
     env: development
-
 spec:
-  type: ClusterIP   
+  type: ClusterIP
   selector:
     app: frontend
-
   ports:
-  - port: 80
-    targetPort: 80
+    - port: 80
+      targetPort: 80
+  
