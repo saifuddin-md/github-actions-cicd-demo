@@ -1,0 +1,88 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: mongo
+  namespace: rr-app
+
+spec:
+  serviceName: mongo-svc
+  replicas: 3
+
+  selector:
+    matchLabels:
+      role: db
+
+  template:
+    metadata:
+      labels:
+        role: db
+        env: demo
+        replicaset: rs0.main
+    
+    spec:
+      affinity:
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+            - weight: 100
+              podAffinityTerm:
+                labelSelector:
+                  matchExpressions:
+                    - key: replicaset
+                      operator: In
+                      values:
+                        - rs0.main
+                topologyKey: kubernetes.io/hostname
+
+      terminationGracePeriodSeconds: 10
+
+      containers:
+        - name: mongo
+          image: mongo:4.2
+
+          command:
+            - "mongod"                                  # Start the MongoDB database server process
+            - "--wiredTigerCacheSizeGB"
+            - "0.1"                                     # This tells MongoDB to use about 100 MB for the WiredTiger cache.
+            - "--bind_ip"
+            - "0.0.0.0"                                  # Listen on ALL interfaces
+            - "--replSet"                                # Enables MongoDB Replica Set mode.
+            - "rs0"                                      # the replica set name.
+
+          ports:
+            - containerPort: 27017
+
+          volumeMounts:
+            - name: mongodb-persistent-storage-claim
+              mountPath: /data/db
+
+  volumeClaimTemplates:
+    - metadata:
+        name: mongodb-persistent-storage-claim
+
+      spec:
+        accessModes:
+          - ReadWriteOnce
+        #storageClassName: gp2      # for eks, need EBS CSI Driver to automatically create EBS
+        resources:
+          requests:
+            storage: 0.1Gi
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: mongo-svc
+  namespace: rr-app
+  labels:
+    role: db
+    env: demo
+
+spec:
+  ports:
+  - port: 27017
+    targetPort: 27017
+
+  clusterIP: None          # It allows stable DNS names, if a pod is restarted, its name remains the same,
+  selector:
+    role: db
+

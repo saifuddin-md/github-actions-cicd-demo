@@ -1,0 +1,38 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: rr-app-ingress
+  namespace: rr-app
+  #annotations:
+  #  cert-manager.io/cluster-issuer: letsencrypt-prod    #
+
+spec:
+  ingressClassName: nginx
+
+ # tls:                                                 #
+ # - hosts:                                             #
+ #   - saiftech.com                                     #
+ #   secretName: rr-app-tls                             #
+
+  rules:
+  - host: saiftech.com
+    http:
+      paths:
+
+      # Frontend
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: ct-frontend-service
+            port:
+              number: 80
+
+      # Backend API
+      - path: /api/v1
+        pathType: Prefix
+        backend:
+          service:
+            name: ct-backend-service
+            port:
+              number: 5001

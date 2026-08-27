@@ -1,0 +1,33 @@
+## Create EKS cluster manually using eksctl
+
+
+```bash
+eksctl create cluster \
+  --name my-eks-cluster \
+  --region ap-south-1 \
+  --nodegroup-name workers \
+  --node-type t3.medium \
+  --nodes 2 \
+  --nodes-min 1 \
+  --nodes-max 3 \
+  --managed
+```
+
+**Update kubeconfig:**
+
+```bash
+aws eks update-kubeconfig --region ap-south-1 --name my-eks-cluster
+```
+**Verify cluster:**
+
+```bash
+kubectl get nodes
+```
+
+OR
+
+**Using Terraform**
+
+```bash
+git clone 
+```
