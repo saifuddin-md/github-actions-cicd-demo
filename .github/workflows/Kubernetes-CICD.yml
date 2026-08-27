@@ -36,7 +36,7 @@ jobs:
           SHORT_SHA=${GITHUB_SHA::7}
 
           # Update image tag in deployment.yaml
-          yq -i '.spec.template.spec.containers[0].image = "xrootms/app-frontend:'"$SHORT_SHA"'"' ./k8s/app/frontend/frontend-deployment.yaml
+          yq -i 'select(.kind == "Deployment") | .spec.template.spec.containers[0].image = "xrootms/app-frontend:'"$SHORT_SHA"'"' ./k8s/app/frontend/frontend-deployment.yaml
 
       - name: Commit deployment file changes
         run: |
