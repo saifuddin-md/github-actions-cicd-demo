@@ -3,7 +3,7 @@ on:
   push:
     branches:
       - dev                          
-      - 'feature/**'                 #push feature/kubernetes-ci - CI runs - PR - dev - CI runs again
+     # - 'feature/**'                 #push feature/kubernetes-ci - CI runs - PR - dev - CI runs again
 jobs:
   rr-app-ci:
     runs-on: ubuntu-latest
@@ -30,19 +30,19 @@ jobs:
           sudo wget https://github.com/mikefarah/yq/releases/latest/download/yq_linux_amd64 -O /usr/bin/yq
           sudo chmod +x /usr/bin/yq
 
-      - name: Update deployment.yml with latest docker tag
-        run: |
-          # Short commit hash
-          SHORT_SHA=${GITHUB_SHA::7}
+      # - name: Update deployment.yml with latest docker tag
+      #   run: |
+      #     # Short commit hash
+      #     SHORT_SHA=${GITHUB_SHA::7}
 
-          # Update image tag in deployment.yaml
-          yq -i 'select(.kind == "Deployment") | .spec.template.spec.containers[0].image = "xrootms/app-frontend:'"$SHORT_SHA"'"' ./k8s/app/frontend/frontend-deployment.yaml
+      #     # Update image tag in deployment.yaml
+      #     yq -i 'select(.kind == "Deployment") | .spec.template.spec.containers[0].image = "xrootms/app-frontend:'"$SHORT_SHA"'"' ./k8s/app/frontend/frontend-deployment.yaml
 
-      - name: Commit deployment file changes
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions@noreply"
-          git switch feature/kubernetes-ci
-          git add k8s/app/frontend/frontend-deployment.yaml
-          git commit -m 'docker tag updated by GHA'
-          git push 
+      # - name: Commit deployment file changes
+      #   run: |
+      #     git config user.name "github-actions[bot]"
+      #     git config user.email "github-actions@noreply"
+      #     git switch feature/kubernetes-ci
+      #     git add k8s/app/frontend/frontend-deployment.yaml
+      #     git commit -m 'docker tag updated by GHA'
+      #     git push 
