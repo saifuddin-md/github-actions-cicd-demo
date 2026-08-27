@@ -8,31 +8,28 @@ metadata:
     env: development
   annotations:
     kubernetes.io/change-cause: "Initial release with rr-frontend:v3"
-
 spec:
   replicas: 1
-  revisionHistoryLimit: 10           # old replicasets kept for rollback (default: 10)
-  minReadySeconds: 5                 # seconds pods must be ready before counted avilable (default:0)
-  progressDeadlineSeconds: 300      # mark rollout stalled after N seconds (default: 600)
+  revisionHistoryLimit: 10 # old replicasets kept for rollback (default: 10)
+  minReadySeconds: 5 # seconds pods must be ready before counted avilable (default:0)
+  progressDeadlineSeconds: 300 # mark rollout stalled after N seconds (default: 600)
   selector:
     matchLabels:
       app: frontend
   strategy:
     type: RollingUpdate
     rollingUpdate:
-      maxSurge: 1                    # allow 1 extra pod during update. (default is 25 %)
-      maxUnavailable: 0              # keep all existing pods available. (default is 25%)
-
+      maxSurge: 1 # allow 1 extra pod during update. (default is 25 %)
+      maxUnavailable: 0 # keep all existing pods available. (default is 25%)
   template:
     metadata:
       labels:
         app: frontend
         environment: development
-
     spec:
       containers:
         - name: rr-frontend--container
-          image: xrootms/app-frontend:v3 # v3 image created for ingress setup REACT_APP_API_URL=/api/v1
+          image: xrootms/app-frontend:5bb9aa6 # v3 image created for ingress setup REACT_APP_API_URL=/api/v1
           imagePullPolicy: Always
           ports:
             - containerPort: 80
@@ -56,20 +53,3 @@ spec:
             limits:
               cpu: "200m"
               memory: "256Mi"
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: rr-frontend-service
-  namespace: rr-app
-  labels:
-    app: frontend
-    env: development
-spec:
-  type: ClusterIP
-  selector:
-    app: frontend
-  ports:
-    - port: 80
-      targetPort: 80
-  
