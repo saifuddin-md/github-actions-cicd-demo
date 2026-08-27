@@ -67,14 +67,6 @@ spec:
   selector:
     app: frontend
   ports:
-<<<<<<< HEAD
     - port: 80
       targetPort: 80
-  template:
-    spec:
-      containers:
-        - image: xrootms/app-frontend:f709c68
-=======
-  - port: 80
-    targetPort: 80
->>>>>>> d72d1ea (edit frontend-deployment.yaml)
+  
