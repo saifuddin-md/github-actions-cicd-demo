@@ -29,7 +29,7 @@ spec:
     spec:
       containers:
         - name: rr-frontend--container
-          image: xrootms/app-frontend:127fb8a # v3 image created for ingress setup REACT_APP_API_URL=/api/v1
+          image: xrootms/app-frontend:f8492ee # v3 image created for ingress setup REACT_APP_API_URL=/api/v1
           imagePullPolicy: Always
           ports:
             - containerPort: 80
