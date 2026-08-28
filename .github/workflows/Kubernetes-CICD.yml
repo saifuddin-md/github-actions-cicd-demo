@@ -37,6 +37,10 @@ jobs:
 
           # Update image tag in deployment.yaml
           yq -i '.spec.template.spec.containers[0].image = "xrootms/app-frontend:'"$SHORT_SHA"'"' ./k8s/app/frontend/frontend-deployment.yaml
+      
+      - name: Check changes
+        run: |
+          git diff -- k8s/app/frontend/frontend-deployment.yaml
 
       - name: Commit deployment file changes
         run: |
