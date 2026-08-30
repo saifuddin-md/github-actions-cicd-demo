@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: rr-app
+  labels:
+    env: dev
+    project: 3-tier-app-on-k8s
+
