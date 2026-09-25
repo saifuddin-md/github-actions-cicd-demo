@@ -7,6 +7,9 @@ on:
 jobs:
   rr-app-ci:
     runs-on: ubuntu-latest
+    #Grant permissions so the runner is allowed to 'git push' back to dev
+    permissions:
+      contents: write
     steps:
       - name: Code Checkout
         uses: actions/checkout@v4
