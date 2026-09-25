@@ -48,18 +48,16 @@ A typical project structure is:
 
 ## Technologies
 
-  Technology       Purpose
-  ---------------- --------------------------------
-  GitHub           Source code and Git repository
-  GitHub Actions   Continuous integration
-  Docker           Container image creation
-  Docker Hub       Container image registry
-  `yq`             YAML manifest modification
-  Argo CD          GitOps continuous delivery
-  Kubernetes       Container orchestration
+| Technology       | Purpose                         |
+|------------------|---------------------------------|
+| GitHub           | Source code and Git repository  |
+| GitHub Actions   | Continuous integration          |
+| Docker           | Container image creation        |
+| Docker Hub       | Container image registry        |
+| `yq`             | YAML manifest modification      |
+| Argo CD          | GitOps continuous delivery      |
+| Kubernetes       | Container orchestration         |
 
-
-## Troubleshooting
 
 ### Docker push fails
 
