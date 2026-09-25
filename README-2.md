@@ -59,6 +59,7 @@ A typical project structure is:
 | Kubernetes       | Container orchestration         |
 
 ---
+## Troubleshooting
 
 ### Docker push fails
 
