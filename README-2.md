@@ -58,6 +58,7 @@ A typical project structure is:
 | Argo CD          | GitOps continuous delivery      |
 | Kubernetes       | Container orchestration         |
 
+---
 
 ### Docker push fails
 
